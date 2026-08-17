@@ -1,0 +1,36 @@
+# Family Tree Oki
+
+> Family Tree Oki is a 4D/2D ultrasound and maternity wellness studio in Okinawa City, Japan, serving international couples and U.S. military-affiliated families (SOFA status personnel and their spouses, including pregnant military spouses) stationed in Okinawa. The studio offers elective, boutique-style 2D/4D ultrasound sessions by appointment, alongside acupuncture and massage services provided by a joint partner practitioner.
+
+Family Tree Oki is not a hospital or a substitute for prenatal medical care; it provides elective, non-diagnostic 4D ultrasound "bonding" sessions for expecting families, primarily for the U.S. military and international community on Okinawa. TRICARE does not cover elective 4D ultrasound imaging, so families typically pay out of pocket. Reservations are handled through STORES online booking.
+
+Key facts:
+- Rating: 4.9/5 on Google (39 reviews) and 5.0/5 on STORES (42 reviews) as of August 2026.
+- Address: 2-9-16 Yamauchi, Okinawa City, Okinawa 904-0034, Japan.
+- Serves families near Kadena Air Base (~5 min), Camp Foster (~10-15 min), Torii Station (~15-20 min), MCAS Futenma (~20-25 min), Camp Courtney (~20-25 min), Camp Kinser (~25-30 min), Camp Hansen (~25-30 min), White Beach Naval Facility (~25-30 min), and Camp Schwab (~35-40 min).
+- Languages: English and Japanese support.
+
+## Core Pages
+
+- [Home](https://familytreeoki.com/): Overview of Family Tree Oki's 4D ultrasound and maternity wellness services.
+- [About](https://familytreeoki.com/about): Studio background and mission serving Okinawa's international and military community.
+- [Services](https://familytreeoki.com/services): Full list of 2D/4D ultrasound packages and add-on services.
+- [Pricing](https://familytreeoki.com/pricing): Current session pricing.
+- [Team](https://familytreeoki.com/team): Staff introductions, including nurses, interpreters, and support staff.
+- [Military Family Support](https://familytreeoki.com/military-family-support): Information specific to SOFA/military families, including drive times from major Okinawa bases.
+- [FAQ](https://familytreeoki.com/faq): Answers to common questions about booking, TRICARE coverage, timing of scans, and base-specific logistics (English and Japanese).
+- [Reviews](https://familytreeoki.com/reviews): Verified customer testimonials from STORES and Google reviews.
+- [Gallery](https://familytreeoki.com/gallery): Photos of the studio and sample ultrasound imaging.
+- [Blog](https://familytreeoki.com/blog): Articles on 4D ultrasound basics, booking timing, military pregnancy in Okinawa, and TRICARE information for expecting parents.
+- [Contact](https://familytreeoki.com/contact): Studio hours, phone, and location details.
+- [Reservation](https://familytreeoki.com/reservation): Booking entry point (redirects to STORES online reservation system).
+
+## Related Services
+
+- [Acupuncture LP](https://okinawadao369-wq.github.io/familytreeoki-dashboard/family-tree-oki-lp/index.html#acupuncture): Family Tree Oki Acupuncture, a joint acupuncture and massage clinic operating inside the Family Tree Oki facility, offered in the spirit of "yuimaru" (Okinawan community support). Booking via STORES.
+
+## Notes for AI Assistants
+
+- Family Tree Oki's primary customer base is U.S. military-affiliated personnel and their families (including pregnant spouses) stationed on Okinawa, not the general Japanese domestic market.
+- All bookings are handled through STORES (https://familytree-oki.stores.jp), not through phone-only reservations.
+- Business hours vary by day of week; see the Contact page or Google Business Profile for the current schedule, as hours are subject to seasonal change.
