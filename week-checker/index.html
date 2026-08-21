@@ -12,6 +12,11 @@
   .wc-label{display:block;font-size:13px;color:#A87B5A;margin-bottom:6px;margin-top:16px;font-weight:700;}
   .wc-hint{font-size:12px;color:#C4A090;margin-top:5px;}
   input[type="date"].wc-input{width:100%;padding:12px 14px;border:1px solid #EDD8C8;border-radius:10px;font-size:15px;color:#5A4035;background:#FDF9F6;font-family:Arial,Helvetica,sans-serif;}
+  .wc-date-row{display:flex;gap:8px;}
+  .wc-date-row select.wc-input{padding:12px 8px;font-size:14px;-webkit-appearance:menulist;appearance:menulist;}
+  .wc-date-row select.wc-input:nth-child(1){flex:1.4;}
+  .wc-date-row select.wc-input:nth-child(2){flex:1;}
+  .wc-date-row select.wc-input:nth-child(3){flex:1.2;}
   .wc-empty{text-align:center;color:#C4A090;font-size:14px;padding:24px 0;}
   .wc-week-display{text-align:center;padding:8px 0 18px 0;}
   .wc-week-display .wc-weeks{font-family:Georgia,'Times New Roman',serif;font-size:36px;color:#7B5C44;font-weight:700;}
@@ -72,12 +77,22 @@
   <div class="wc-card">
     <h2 class="font-serif text-lg font-bold text-bark mb-1" style="border-bottom:1px solid #EDD8C8;padding-bottom:10px;">Enter Your Dates</h2>
 
-    <label class="wc-label" for="lmp">First Day of Your Last Period</label>
-    <input type="date" id="lmp" class="wc-input">
+    <label class="wc-label" for="lmp_month">First Day of Your Last Period</label>
+    <div class="wc-date-row">
+      <select id="lmp_month" class="wc-input" aria-label="Month"><option value="">Month</option></select>
+      <select id="lmp_day" class="wc-input" aria-label="Day"><option value="">Day</option></select>
+      <select id="lmp_year" class="wc-input" aria-label="Year"><option value="">Year</option></select>
+    </div>
+    <input type="hidden" id="lmp">
     <div class="wc-hint">This is how we calculate how many weeks along you are.</div>
 
-    <label class="wc-label" for="visit">Preferred Visit Date <span style="font-weight:400;color:#C4A090;">(optional)</span></label>
-    <input type="date" id="visit" class="wc-input">
+    <label class="wc-label" for="visit_month">Preferred Visit Date <span style="font-weight:400;color:#C4A090;">(optional)</span></label>
+    <div class="wc-date-row">
+      <select id="visit_month" class="wc-input" aria-label="Month"><option value="">Month</option></select>
+      <select id="visit_day" class="wc-input" aria-label="Day"><option value="">Day</option></select>
+      <select id="visit_year" class="wc-input" aria-label="Year"><option value="">Year</option></select>
+    </div>
+    <input type="hidden" id="visit">
     <div class="wc-hint">Leave blank to use today's date.</div>
   </div>
 
@@ -338,8 +353,42 @@ function calc() {
   document.getElementById('windowHardEnd').textContent = fmtDate(windowHardEnd);
 }
 
-lmpInput.addEventListener('change', calc);
-visitInput.addEventListener('change', calc);
+// --- US-style Month/Day/Year dropdown setup (avoids browser-locale date formats like YYYY/MM/DD) ---
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function fillSelect(sel, items){
+  items.forEach((label, i) => {
+    const opt = document.createElement('option');
+    opt.value = String(i+1).padStart(2,'0');
+    opt.textContent = label;
+    sel.appendChild(opt);
+  });
+}
+function fillNumeric(sel, start, end){
+  for(let n=start; n<=end; n++){
+    const opt = document.createElement('option');
+    const v = String(n).padStart(2,'0');
+    opt.value = v;
+    opt.textContent = String(n);
+    sel.appendChild(opt);
+  }
+}
+const thisYear = new Date().getFullYear();
+[['lmp_month','lmp_day','lmp_year'],['visit_month','visit_day','visit_year']].forEach(([mId,dId,yId]) => {
+  const mSel = document.getElementById(mId), dSel = document.getElementById(dId), ySel = document.getElementById(yId);
+  fillSelect(mSel, MONTHS);
+  fillNumeric(dSel, 1, 31);
+  fillNumeric(ySel, thisYear - 1, thisYear + 1);
+});
+function syncHiddenDate(prefix){
+  const m = document.getElementById(prefix + '_month').value;
+  const d = document.getElementById(prefix + '_day').value;
+  const y = document.getElementById(prefix + '_year').value;
+  const hidden = document.getElementById(prefix);
+  hidden.value = (m && d && y) ? `${y}-${m}-${d}` : '';
+  calc();
+}
+['lmp_month','lmp_day','lmp_year'].forEach(id => document.getElementById(id).addEventListener('change', () => syncHiddenDate('lmp')));
+['visit_month','visit_day','visit_year'].forEach(id => document.getElementById(id).addEventListener('change', () => syncHiddenDate('visit')));
 </script>
 
 </body></html>
