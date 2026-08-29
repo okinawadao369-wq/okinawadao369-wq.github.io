@@ -237,6 +237,22 @@
   .music-bar .title{font-size:13.5px; font-weight:bold; color:var(--bark);}
   .music-bar .sub-title{font-size:11.5px; color:var(--sub);}
   .music-bar .time{font-size:11px; color:var(--sub); white-space:nowrap;}
+  .video-wrap{
+    max-width:340px;
+    margin:22px auto;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    box-shadow:0 6px 18px rgba(123,92,68,0.15);
+  }
+  .video-wrap video{width:100%; display:block; background:#000;}
+  .video-caption{
+    text-align:center;
+    font-size:12px;
+    color:var(--sub);
+    margin-top:-10px;
+    margin-bottom:22px;
+  }
 </style>
 </head>
 <body>
@@ -254,6 +270,13 @@
     <p>Our street has several similar-looking buildings, and our building has two garage entrances side by side, so it's easy to circle the block on your first visit.<br>
     Here's a photo-by-photo guide from the landmark building to our parking entrance.</p>
   </div>
+
+  <div class="video-wrap">
+    <video controls playsinline preload="metadata" poster="video/video-poster.jpg">
+      <source src="video/parking-arrival-guide.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="video-caption">▶ Watch the 35-second walkthrough — landmark, parking, and entrance</div>
 
   <div class="music-bar">
     <button id="musicToggle" aria-label="Play music">▶</button>
@@ -340,6 +363,14 @@
       <div class="body">
         <h3><span class="num">7</span>After parking, follow the "ENTRANCE" sign</h3>
         <p>Once inside the garage, follow the "ENTRANCE →" signage on the ceiling or wall to reach the clinic entrance.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <img src="images/walkin-entrance-stairs.jpg" alt="Gate and steps leading up to the clinic entrance">
+      <div class="body">
+        <h3><span class="num">8</span>Take the gate &amp; steps up</h3>
+        <p>From the garage level, go through the gate and up the short flight of steps to reach the clinic. Please take your time — no need to rush.</p>
       </div>
     </div>
 
