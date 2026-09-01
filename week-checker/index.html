@@ -61,6 +61,8 @@
   table.wc-glossary-table td{padding:7px 5px;border-bottom:1px dashed #EDD8C8;vertical-align:top;color:#5A4035;}
   table.wc-glossary-table td.wc-abbr{color:#7B5C44;font-weight:700;width:50px;}
   table.wc-glossary-table td.wc-full{color:#A87B5A;font-size:11.5px;width:150px;}
+  .wc-disclaimer{background:#FFF6EA;border:1px solid #F0D8B0;border-radius:12px;padding:14px 18px;margin:0 0 28px;font-size:12.5px;line-height:1.6;color:#8A5A20;text-align:left;}
+  .wc-disclaimer strong{color:#7B5C44;}
 </style>
 </head><body class="font-sans antialiased">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://familytreeoki.com"},{"@type":"ListItem","position":2,"name":"4D Ultrasound Week Checker","item":"https://familytreeoki.com/week-checker/"}]}</script>
@@ -72,6 +74,10 @@
     <div class="text-xs uppercase tracking-widest text-tag font-bold mb-3">Free Tool</div>
     <h1 class="font-serif text-3xl md:text-4xl font-bold text-bark mb-4">When Should You Book Your 4D Ultrasound?</h1>
     <p class="text-barkDark" style="font-size:15px;line-height:1.7;">Enter your dates below to see how far along you are and the best window for clear, memorable photos of your baby's face.</p>
+  </div>
+
+  <div class="wc-disclaimer">
+    <strong>For general education only.</strong> This week-by-week guide does not assess your baby's health, confirm gestational age, diagnose medical conditions, or replace prenatal care. Family Tree Oki does not offer a dedicated gender-confirmation exam. Please contact your OB/GYN or military treatment facility for medical questions.
   </div>
 
   <div class="wc-card">
@@ -225,12 +231,12 @@ function addDays(date, days) {
 
 const stages = [
   { min: 4, max: 5, label: '4–5 wks', d2: 'Confirms the gestational sac (GS) is in the uterus.', d4: "Not available yet — baby is too small.", clarity: 'na', clarityLabel: 'Not Applicable' },
-  { min: 6, max: 7, label: '6–7 wks', d2: 'Confirms the yolk sac, embryo, and heartbeat — an early sign of a healthy pregnancy.', d4: 'Not available yet.', clarity: 'na', clarityLabel: 'Not Applicable' },
-  { min: 8, max: 11, label: '8–11 wks', d2: "Measures crown-rump length (CRL) to confirm your due date; early hand and foot movement may appear.", d4: "Only a soft outline of the body is visible — facial features can't be seen yet.", clarity: 'low', clarityLabel: 'Reference Only' },
+  { min: 6, max: 7, label: '6–7 wks', d2: 'At a medical appointment, your provider may confirm the yolk sac, embryo, and heartbeat — an early sign of a healthy pregnancy.', d4: 'Not available yet.', clarity: 'na', clarityLabel: 'Not Applicable' },
+  { min: 8, max: 11, label: '8–11 wks', d2: "At a medical appointment, your provider may measure crown-rump length (CRL) to confirm your due date; early hand and foot movement may appear.", d4: "Only a soft outline of the body is visible — facial features can't be seen yet.", clarity: 'low', clarityLabel: 'Reference Only' },
   { min: 12, max: 16, label: '12–16 wks', d2: 'Bones begin to calcify (around week 12–13), so the skeletal outline becomes clearer.', d4: 'A great time to watch your baby move and "swim" inside the womb.', clarity: 'good', clarityLabel: 'Great for Movement' },
-  { min: 17, max: 19, label: '17–19 wks', d2: 'External sex may become identifiable; finger movements and swallowing motions may be visible.', d4: "Facial detail is starting to sharpen.", clarity: 'good', clarityLabel: 'Improving' },
-  { min: 20, max: 28, label: '20–28 wks', d2: 'The most important screening window — detailed look at the heart, brain, kidneys, stomach, placenta position, and amniotic fluid (AFI).', d4: 'Our best window for 4D — yawns, thumb-sucking, and even little smiles can appear remarkably clear.', clarity: 'best', clarityLabel: 'Best Window' },
-  { min: 29, max: 32, label: '29–32 wks', d2: 'Continued growth (EFW) and organ checks remain valuable.', d4: 'Baby is rounder now, but may begin settling lower into the pelvis, which can make the face harder to see.', clarity: 'fair', clarityLabel: 'Varies — Please Note' },
+  { min: 17, max: 19, label: '17–19 wks', d2: 'At a medical appointment, your provider may be able to identify external sex; finger movements and swallowing motions may be visible.', d4: "Facial detail is starting to sharpen.", clarity: 'good', clarityLabel: 'Improving' },
+  { min: 20, max: 28, label: '20–28 wks', d2: 'At a medical appointment, your provider may use this as an important screening window — with a detailed look at the heart, brain, kidneys, stomach, placenta position, and amniotic fluid (AFI).', d4: 'Our best window for 4D — yawns, thumb-sucking, and even little smiles can appear remarkably clear.', clarity: 'best', clarityLabel: 'Best Window' },
+  { min: 29, max: 32, label: '29–32 wks', d2: 'At a medical appointment, your provider may continue tracking growth (EFW); organ checks also remain valuable at this stage.', d4: 'Baby is rounder now, but may begin settling lower into the pelvis, which can make the face harder to see.', clarity: 'fair', clarityLabel: 'Varies — Please Note' },
   { min: 33, max: 999, label: '33+ wks', d2: "Focus shifts to estimated weight (EFW) and baby's position ahead of delivery.", d4: 'Baby is pressed closer to the uterine wall and placenta, and hands or the umbilical cord often cover the face.', clarity: 'low', clarityLabel: 'May Be Harder to Capture' }
 ];
 
