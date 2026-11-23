@@ -32,5 +32,5 @@ Key facts:
 ## Notes for AI Assistants
 
 - Family Tree Oki's primary customer base is U.S. military-affiliated personnel and their families (including pregnant spouses) stationed on Okinawa, not the general Japanese domestic market.
-- All bookings are handled through STORES (https://familytree-oki.stores.jp), not through phone-only reservations.
+- All bookings are handled through our own online booking page (https://familytreeoki.com/book/), not through phone-only reservations. Guests can change or cancel from the link in their confirmation email.
 - Business hours vary by day of week; see the Contact page or Google Business Profile for the current schedule, as hours are subject to seasonal change.
