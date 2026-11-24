@@ -81,6 +81,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--rose);border-col
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;margin:8px 0}
 .chk input{width:auto;margin-top:3px}
 .hp{position:absolute;left:-9999px}
+.lbl{font-size:13px;font-weight:bold;display:block;margin-bottom:4px}
+.seg{display:flex;gap:8px;flex-wrap:wrap;border:0;padding:0;margin:0}
+.seg label{flex:1;min-width:130px;position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:block;text-align:center;border:1px solid var(--border);border-radius:20px;padding:10px 8px;background:#fff;color:var(--bark)}
+.seg input:checked+span{background:var(--peach);border-color:var(--peach);color:#fff;font-weight:bold}
+.seg input:focus-visible+span{outline:2px solid var(--rose);outline-offset:2px}
 .err{color:#B0464F;font-size:13px;min-height:1em}
 .btn{background:var(--bark);color:#fff;border:0;border-radius:24px;padding:13px 26px;font:inherit;font-weight:bold;cursor:pointer}
 .btn:disabled{opacity:.45;cursor:default}
@@ -169,6 +176,7 @@ footer{max-width:880px;margin:0 auto;padding:0 16px 30px;font-size:12px;color:va
   <section class="panel" id="p3" aria-labelledby="h3s">
     <h2 id="h3s" data-t="yourDetails">Your details</h2>
     <form id="form" novalidate>
+      <div class="f"><span class="lbl" id="visitLbl" data-t="visit">Is this your first visit to Family Tree Oki?</span><div class="seg" role="radiogroup" aria-labelledby="visitLbl"><label><input type="radio" name="visit" value="first" required><span data-t="visitFirst">First visit</span></label><label><input type="radio" name="visit" value="repeat"><span data-t="visitRepeat">2nd+ visit</span></label></div></div>
       <div class="row">
         <div class="f"><label for="name" data-t="name">Full name</label><input id="name" name="name" autocomplete="name" required maxlength="80"></div>
         <div class="f"><label for="email" data-t="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="120"></div>
@@ -229,6 +237,7 @@ var T = {
     demo:'Preview mode: the times shown are samples and no booking is sent.',s1:'1. Service',s2:'2. Date & time',s3:'3. Your details',s4:'4. Done',
     chooseService:'Choose a service',chooseDate:'Choose a date and time',dateLabel:'Date',timeLabel:'Start time',pickDay:'Please choose a date.',lgOpen:'Available',lgFull:'Booked',lgNa:'Not offered',holiday:'Closed',closedDay:'Closed',
     noTimes:'No open times on this day. Please try another date.',closed:'Closed',open:'open',yourDetails:'Your details',name:'Full name',email:'Email',phone:'Phone',
+    visit:'Is this your first visit to Family Tree Oki?',visitFirst:'First visit',visitRepeat:'2nd+ visit',e_visit:'Please choose First visit or 2nd+ visit.',
     phoneHint:'(US or Japan number)',weeks:'Weeks pregnant',optional:'(optional)',guests:'Family members coming with you',interp:'I would like interpreter support',
     notes:'Anything we should know?',agree:'I understand this is a non-medical session. It is not a medical consultation or diagnosis and does not replace care from my OB/GYN or military treatment facility. Family Tree Oki does not provide fetal sex determination or confirmation.',
     thanks:"You're booked!",thanksSub:'A confirmation email is on its way. We look forward to welcoming your family.',cancelNote:'Need to cancel? Use the link in your confirmation email, or contact us.',
@@ -244,6 +253,7 @@ var T = {
     demo:'プレビュー表示です。表示中の時間は見本で、予約は送信されません。',s1:'1. メニュー',s2:'2. 日時',s3:'3. お客様情報',s4:'4. 完了',
     chooseService:'メニューを選んでください',chooseDate:'日時を選んでください',dateLabel:'日付',timeLabel:'開始時間',pickDay:'日付を選んでください。',lgOpen:'予約可',lgFull:'予約済み',lgNa:'受付時間外',holiday:'定休日',closedDay:'休業日',
     noTimes:'この日は空きがありません。別の日をお選びください。',closed:'休み',open:'枠',yourDetails:'お客様情報',name:'お名前',email:'メールアドレス',phone:'電話番号',
+    visit:'Family Tree Okiのご利用は初めてですか？',visitFirst:'初回（First visit）',visitRepeat:'再来（2nd+ visit）',e_visit:'「初回」か「再来」を選んでください。',
     phoneHint:'（米国・日本どちらも可）',weeks:'妊娠週数',optional:'（任意）',guests:'同伴されるご家族の人数',interp:'通訳サポートを希望する',
     notes:'事前にお伝えいただきたいこと',agree:'医療行為ではないセッションであることを理解しました。診察・診断ではなく、産婦人科や基地内医療施設での健診の代わりにはなりません。Family Tree Okiは胎児の性別の判定・確認を行いません。',
     thanks:'ご予約が完了しました',thanksSub:'確認メールをお送りしました。ご家族でのご来店をお待ちしています。',cancelNote:'キャンセルは確認メールのリンクから、またはお電話でご連絡ください。',
@@ -441,9 +451,11 @@ function submit(){
   var f=$('form'), err=$('formErr');
   var b={action:'book',menu:state.menu.id,date:state.date,time:state.time,
     name:f.name.value.trim(),email:f.email.value.trim(),phone:f.phone.value.trim(),weeks:f.weeks.value.trim(),
-    notes:f.notes.value.trim(),agree:f.agree.checked,website:f.website.value};
+    notes:f.notes.value.trim(),agree:f.agree.checked,website:f.website.value,
+    visit:(f.querySelector('input[name=visit]:checked')||{}).value||''};
   var e='';
-  if(b.name.length<2) e='e_name';
+  if(!b.visit) e='e_visit';
+  else if(b.name.length<2) e='e_name';
   else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)) e='e_email';
   else if(!/^[+0-9()\-\s]{6,25}$/.test(b.phone)) e='e_phone';
   else if(b.weeks && !/^\d{1,2}$/.test(b.weeks)) e='e_weeks';
@@ -454,7 +466,7 @@ function submit(){
     state.busy=false;
     if(r.ok){
       track('purchase',{transaction_id:r.id,value:state.menu.price,currency:'JPY',items:[{item_id:state.menu.id,item_name:state.menu.name}]});
-      track('booking_complete',{menu:state.menu.id});
+      track('booking_complete',{menu:state.menu.id,visit_type:b.visit});
       $('doneList').innerHTML='<dt>'+esc(t('bookingNo'))+'</dt><dd>'+esc(r.id)+'</dd><dt>'+esc(t('service'))+'</dt><dd>'+esc(lang==='ja'&&state.menu.nameJa?state.menu.nameJa:state.menu.name)+'</dd>'+
         '<dt>'+esc(t('when'))+'</dt><dd>'+esc(whenText())+'</dd><dt>'+esc(t('price'))+'</dt><dd>'+yen(state.menu.price)+' ('+esc(t('payInStore'))+')</dd>';
       go(4);
