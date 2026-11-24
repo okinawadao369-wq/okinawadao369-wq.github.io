@@ -200,6 +200,14 @@ footer{max-width:880px;margin:0 auto;padding:0 16px 30px;font-size:12px;color:va
     </div>
   </section>
 
+  <!-- REVIEW (staff) -->
+  <section class="panel" id="pr" aria-live="polite">
+    <div class="done">
+      <h2>レビュー依頼メール（スタッフ用）</h2>
+      <div id="reviewBody"><p class="empty"><span class="spin"></span></p></div>
+    </div>
+  </section>
+
   <!-- STEP 4 -->
   <section class="panel" id="p4" aria-live="polite">
     <div class="done">
@@ -536,8 +544,33 @@ function submitResched(){
   }).catch(function(){ state.busy=false; renderBar(); $('grid').insertAdjacentHTML('beforebegin','<p class="err">'+esc(t('e_generic'))+'</p>'); });
 }
 
+/* ---------- review request (staff) ---------- */
+var rId=qs.get('review'), rKey=qs.get('k');
+function showReview(){
+  document.querySelector('.steps').style.display='none'; $('bar').hidden=true;
+  ['p1','p2','p3','p4','pc'].forEach(function(id){$(id).classList.remove('show');}); $('pr').classList.add('show');
+  var box=$('reviewBody');
+  api({action:'reviewInfo',id:rId,k:rKey}).then(function(r){
+    if(!r.ok){box.innerHTML='<p>この予約が見つかりません。カレンダーの予定から開き直してください。</p>';return;}
+    var info='<dl><dt>予約番号</dt><dd>'+esc(r.id)+'</dd><dt>お名前</dt><dd>'+esc(r.name)+'</dd><dt>メール</dt><dd>'+esc(r.email)+'</dd><dt>メニュー</dt><dd>'+esc(r.menu)+'</dd><dt>ご来店</dt><dd>'+esc(r.date)+' '+esc(r.time)+'</dd>'+(r.visit?'<dt>初回／再来</dt><dd>'+esc(r.visit)+'</dd>':'')+'</dl>';
+    if(r.status==='cancelled'){box.innerHTML=info+'<p class="err">この予約はキャンセルされています。レビュー依頼は送れません。</p>';return;}
+    var sent=r.sentAt?'<p class="note">'+esc(r.sentAt)+' に送信済みです。</p>':'';
+    box.innerHTML=info+'<p>ご来店とお支払いを確認しましたか？ 下のボタンを押すと、お客様にGoogleマップのレビュー依頼メール（英語・日本語）が届きます。</p>'+sent+
+      '<p><button type="button" class="btn" id="sendReview">'+(r.sentAt?'もう一度送る':'レビュー依頼メールを送る')+'</button></p><p class="err" id="reviewErr"></p>';
+    $('sendReview').addEventListener('click',function(){
+      var b=this; b.disabled=true; b.textContent='送信中…';
+      post({action:'review',id:rId,k:rKey,again:!!r.sentAt}).then(function(x){
+        if(x.ok){track('review_request_sent');box.innerHTML=info+'<div class="ok">✓</div><p><b>'+esc(r.name)+'</b> 様にレビュー依頼メールを送りました（'+esc(x.sentAt)+'）。</p>';}
+        else if(x.error==='already'){b.disabled=false;b.textContent='もう一度送る';r.sentAt=x.sentAt;$('reviewErr').textContent=x.sentAt+' に送信済みです。もう一度送る場合はボタンを押してください。';}
+        else {b.disabled=false;b.textContent='レビュー依頼メールを送る';$('reviewErr').textContent='送れませんでした（'+(x.error||'error')+'）。時間をおいてもう一度お試しください。';}
+      }).catch(function(){b.disabled=false;b.textContent='レビュー依頼メールを送る';$('reviewErr').textContent='通信エラーです。もう一度お試しください。';});
+    });
+  }).catch(function(){box.innerHTML='<p class="err">読み込めませんでした。もう一度開いてください。</p>';});
+}
+
 /* ---------- start ---------- */
 if(DEMO) $('demo').hidden=false;
+if(rId && rKey){ lang='ja'; applyLang(); showReview(); return; }
 if(cId && cKey){ applyLang(); showCancel(); return; }
 api({action:'config'}).then(function(r){
   state.menus=r.menus||[]; state.maxDays=r.maxDaysAhead||120; state.hours=r.hours||DEMO_HOURS; state.special=r.special||{}; state.step60=r.slotMinutes||60;
